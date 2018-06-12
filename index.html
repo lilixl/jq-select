@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="http://cdn.static.runoob.com/libs/jquery/1.10.2/jquery.min.js"></script>
+  <title>Document</title>
+</head>
+<style>
+  .divBox {
+    width: 400px;
+    margin: 100px auto;
+  }
+
+  .divBox>span {
+    vertical-align: top;
+    display: inline-block;
+    margin-top: 16px;
+  }
+
+  .divBox .duiMutiple {
+    display: inline-block;
+    width: 330px;
+    vertical-align: top;
+  }
+
+  .divSel {
+    min-height: 40px;
+    padding: 0 5px 5px;
+    box-sizing: border-box;
+    cursor: pointer;
+    border-radius: 5px;
+    border: 1px solid #A0A0A0;
+    margin-top: 10px;
+    background-size: 10px;
+  }
+
+  #selectBox {
+    list-style: none;
+    padding: 0;
+    border: 1px solid #A0A0A0;
+    border-radius: 5px;
+    height: 200px;
+    overflow: auto;
+    display: none;
+  }
+
+  #selectBox li {
+    padding: 3px 10px;
+    cursor: pointer;
+  }
+
+  #selectBox li:hover {
+    background-color: #eee;
+  }
+
+  .tag {
+    padding: 2px 5px;
+    border: 1px solid #e5e5e5;
+    border-radius: 4px;
+    display: inline-block;
+    height: 22px;
+    line-height: 22px;
+    margin: 5px 0 0 5px;
+  }
+
+  .tag .icon-close {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    margin-left: 3px;
+    background: url("./imgs/close.png") center/cover no-repeat;
+  }
+</style>
+
+<body>
+  <div class="divBox">
+    <span>水果</span>
+    <div class="duiMutiple">
+      <div class="divSel"></div>
+      <ul id="selectBox">
+        <li>苹果</li>
+        <li>菠萝</li>
+        <li>香蕉</li>
+        <li>火龙果</li>
+        <li>梨子</li>
+        <li>草莓</li>
+        <li>哈密瓜</li>
+        <li>椰子</li>
+        <li>猕猴桃</li>
+        <li>桃子</li>
+      </ul>
+    </div>
+  </div>
+</body>
+
+</html>
+<script>
+  $("#selectBox").hide();
+  $(".divSel").click(function () {
+    $("#selectBox").toggle();
+  });
+  var arr = [];
+  $("#selectBox li").click(function () {
+    if (arr.indexOf($(this).text()) === -1) {
+      arr.push($(this).text());
+    } else {
+      arr.splice(arr.indexOf($(this).text()), 1)
+    }
+    var newArr = arr.map(function (item) {
+      return "<span class='tag'>" + item + "<i class='icon-close'></i>" + "</span>"
+    })
+    $('.divSel').html(newArr);
+    $(".icon-close").each(function (index, e) {
+      $(this).click(function (e) {
+        e.stopPropagation();
+        $(this).parent().remove();
+        arr.splice(arr.indexOf($(this).text()), 1);
+      })
+    })
+  })
+</script>
